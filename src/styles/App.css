@@ -1,0 +1,28 @@
+body {
+  margin:0px;
+}
+
+.App {
+  text-align: center;
+}
+
+
+
+#square-selection {
+  width:80%;
+  margin:10px;
+  /* height:170px; */
+}
+
+
+#square-selection::after {
+  content: "";
+  display: block;
+  padding-bottom: 100%;
+}
+
+
+
+
+
+

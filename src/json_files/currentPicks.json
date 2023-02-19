@@ -1,0 +1,17 @@
+{
+
+    "dd/mm/yyyy":{
+        "pick_1":{
+            "bet":"Brady Scores over 12 points"
+        },
+        "pick_2":{
+            "bet":"Brady Scores less than 12 points"
+        },
+        "pick_3":{
+            "bet":"Bunch Scores over 15 points"
+        },
+        "pick_4":{
+            "bet":"Bunch Scores less than 15 points"
+        }
+    }
+}
