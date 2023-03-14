@@ -102,13 +102,12 @@ const PasswordField = ({name, placeholder,fieldRef,track}) => {
 // ███████║     ╚████╔╝ ██║███████╗╚███╔███╔╝
 // ╚══════╝      ╚═══╝  ╚═╝╚══════╝ ╚══╝╚══╝ 
                                           
-const SigninView = ({setReg}) => {
+const SigninView = ({setReg,setSession}) => {
     
     const [regLine, setRegline] = useState(false);
     const [userExists, setUserExists] = useState(false);
     const [signError, setSignError] = useState(false);
     const [timer, setTimer] = useState(null);
-    // const { data: session, status } = useSession();
 
 
     // functions
@@ -169,27 +168,27 @@ const SigninView = ({setReg}) => {
             username:field.value
         }
 
-        const JSONdata = JSON.stringify(data);
+        // const JSONdata = JSON.stringify(data);
 
-        const options = {
-            // The method is POST because we are sending data.
-            method: 'POST',
-            // Tell the server we're sending JSON.
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            // Body of the request is the JSON data we created above.
-            body: JSONdata
-        };
+        // const options = {
+        //     // The method is POST because we are sending data.
+        //     method: 'POST',
+        //     // Tell the server we're sending JSON.
+        //     headers: {
+        //       'Content-Type': 'application/json',
+        //     },
+        //     // Body of the request is the JSON data we created above.
+        //     body: JSONdata
+        // };
 
-        const response = await fetch (endpoint,options); 
-        const info = await response.json();
+        // const response = await fetch (endpoint,options); 
+        // const info = await response.json();
         
-        if (info.exists) {
-            setUserExists(true);
-        } else if (!(info.exists)) {
-            setUserExists(false);
-        }
+        // if (info.exists) {
+        //     setUserExists(true);
+        // } else if (!(info.exists)) {
+        //     setUserExists(false);
+        // }
 
     }
 
@@ -245,7 +244,9 @@ const SigninView = ({setReg}) => {
                     <PasswordField name='login-password' placeholder={'Password'}/>
                     
                     <Button variant="outlined" color='highlight' sx={{width:'90%',margin:'10px'}}
-                        onClick={() => handleSignin() }
+                        onClick={() => {
+                            setSession(true);
+                        } }
                     >
                         Log In
                     </Button>
@@ -309,8 +310,10 @@ const RegisterView = ({setReg}) => {
     
 
     const handleRegister = async() => {
-
+        
+        
         if ((userFlag==1) && (pass1Flag==1) && (pass2Flag==1)) {
+            
             const userField = document.querySelector('#register-username');
             const passField = document.querySelector('#reg-password');
             setRegName(userField.value);
@@ -320,24 +323,27 @@ const RegisterView = ({setReg}) => {
                 password:passField.value
             }
 
-            const JSONdata = JSON.stringify(data);
+            setRegistered(true)
 
-            const options = {
-                // The method is POST because we are sending data.
-                method: 'POST',
-                // Tell the server we're sending JSON.
-                headers: {
-                'Content-Type': 'application/json',
-                },
-                // Body of the request is the JSON data we created above.
-                body: JSONdata
-            };
 
-            const response = await fetch(endpoint,options);
+            // const JSONdata = JSON.stringify(data);
+
+            // const options = {
+            //     // The method is POST because we are sending data.
+            //     method: 'POST',
+            //     // Tell the server we're sending JSON.
+            //     headers: {
+            //     'Content-Type': 'application/json',
+            //     },
+            //     // Body of the request is the JSON data we created above.
+            //     body: JSONdata
+            // };
+
+            // const response = await fetch(endpoint,options);
             
-            if (response) {
-                setRegistered(true);
-            }
+            // if (response) {
+            //     setRegistered(true);
+            // }
         }
 
     }
@@ -427,15 +433,16 @@ const RegisterView = ({setReg}) => {
             body: JSONdata
         };
 
-        const response = await fetch (endpoint,options); 
-        const info = await response.json();
+        setUserExists(false);
+        // const response = await fetch (endpoint,options); 
+        // const info = await response.json();
         
         
-        if (info.exists) {
-            setUserExists(true);
-        } else if (!(info.exists)) {
-            setUserExists(false);
-        }
+        // if (info.exists) {
+        //     setUserExists(true);
+        // } else if (!(info.exists)) {
+        //     setUserExists(false);
+        // }
 
     }
 
@@ -733,7 +740,7 @@ const RegisterView = ({setReg}) => {
     )
 }
 
-const LoggedIn = ({currentUser}) => {
+const LoggedIn = ({currentUser,setSession}) => {
     
     return(
         <motion.div style={{height:'100%',width:'100%'}}
@@ -756,7 +763,9 @@ const LoggedIn = ({currentUser}) => {
                     </Typography>
                 </Box>
                 <Button variant="outlined" color='highlight' sx={{width:'60%'}}
-                    onClick={() => {signOut()}}
+                    onClick={() => {
+                        setSession(false);
+                    }}
                 >
                     Log Out
                 </Button>
@@ -779,7 +788,9 @@ const LoggedIn = ({currentUser}) => {
 const Signin = ({user}) => {
     const [open,setOpen] = useState(false);
     const [register, setRegister] = useState(false);
-    const { data: session, status } = useSession();
+    const [session,setSession] = useState(false);
+    const [testuser,setTestuser] = useState('Test User');
+    // const { data: session, status } = useSession();
 
     
 
@@ -826,8 +837,8 @@ const Signin = ({user}) => {
                 {
                 open &&  
                     (register? <RegisterView setReg={setRegister} /> :
-                    session? <LoggedIn currentUser={user.user.username} /> :
-                    <SigninView setReg={setRegister} />)
+                    session? <LoggedIn currentUser={testuser} setSession={setSession} /> :
+                    <SigninView setReg={setRegister} setSession={setSession} />)
                 }
 
  

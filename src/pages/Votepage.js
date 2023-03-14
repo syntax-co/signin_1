@@ -386,10 +386,28 @@ function Votepage({data}) {
             background:'linear-gradient(135deg, #743fd155, #3e84cf55)'
           }}>
             
-            {!voted?
-              <VotingView setFunction={setVoted} currentUser={data.user} />:
-              <VotedView />
-            }
+            <Box sx={{
+              width:'100%',
+              height:'80%',
+              display:'flex',
+              alignItems:'center',
+              justifyContent:'center',
+
+            }}>
+
+              <Typography sx={{
+                color:'white',
+                fontSize:'calc(16px + .8vw)',
+                fontFamily:'montserrat',
+                width:'80%'
+              }}>
+                This is a sign in menu design that I had come up with when creating one for a client.
+              </Typography>
+
+            </Box>
+
+
+            
           </Box>
 
         </Box>
