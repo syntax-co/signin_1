@@ -335,23 +335,12 @@ function Votepage({data}) {
     setWindowHeight(window.innerHeight);
   }
 
-  const quickCheck = async() => {
-    if (data.user) {
-      const checkData = { 
-        betkey:betKey,
-        username:data.user.username
-      }
-      const didVote = await checkVoted(checkData);
-      if (didVote) {
-        setVoted(didVote);
-      }
-    }
-  }
+ 
 
   useEffect(() => { 
     setWindowHeight(window.innerHeight);
     setShowBanner(navigator.cookieEnabled);
-    quickCheck();
+    
     window.addEventListener('resize',handleHeight);
 
     return () => window.removeEventListener('resize',handleHeight);

@@ -17,17 +17,4 @@ export default function Home(pageProps) {
 
 
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-
-  var data={}
-
-  if (session) {
-    data['user'] = session.user;
-  }
-
-  return {
-    props: {data:data},
-  }
-}
 
